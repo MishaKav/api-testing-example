@@ -67,8 +67,15 @@ jobs:
       # - name: Generating coverage badges
       #   uses: jpb06/jest-badges-action@latest
 
-      - uses: willcaul/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # can base on that, summary + table
+      # - uses: willcaul/jest-github-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     test-command: 'npm test'
+
+      - name: Comment with Test Coverage
+        uses: dkershner6/jest-coverage-commenter-action@v1
         with:
-          test-command: 'npm test'
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
+          test_command: 'npm run test'
