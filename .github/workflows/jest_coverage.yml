@@ -11,10 +11,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: NPM Cache
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm
+
+      - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run tests
+      - name: Run Tests
         run: npm run coverage
 
       # very basic, without links
@@ -33,5 +43,5 @@ jobs:
 
       # too simple table
       # - uses: ArtiomTr/jest-coverage-report-action@v2
-        
+
       - uses: mattallty/jest-github-action@v1
