@@ -1,0 +1,33 @@
+{
+  "name": "api-testing-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jersson/api-testing-example.git"
+  },
+  "author": "Misha Kav",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jersson/api-testing-example/issues"
+  },
+  "homepage": "https://github.com/jersson/api-testing-example#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "url-parse": "^1.5.10"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "eslint": "^8.11.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^27.5.1"
+  }
+}
