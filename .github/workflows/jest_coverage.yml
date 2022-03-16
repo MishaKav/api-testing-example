@@ -21,3 +21,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./coverage/lcov.info
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: JEST Tests # Name of the check run which will be created
+          path: coverage/jest-*.xml # Path to test results
+          reporter: jest-junit # Format of test results
