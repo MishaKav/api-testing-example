@@ -44,6 +44,12 @@ jobs:
       # too simple table
       # - uses: ArtiomTr/jest-coverage-report-action@v2
 
-      - uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # simple table
+      # - uses: mattallty/jest-github-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: vebr/jest-lcov-reporter@v0.2.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
