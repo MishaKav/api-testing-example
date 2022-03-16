@@ -54,4 +54,9 @@ jobs:
         uses: anuraag016/Jest-Coverage-Diff@master
         with:
           fullCoverageDiff: true
-          runCommand: "npx jest --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit --detectOpenHandles test/.*test.*"
+          runCommand: "npx jest --collectCoverageFrom='[\"src/**/*.{js,jsx,ts,tsx}\"]' --coverage --collectCoverage=true --coverageDirectory='./' --coverageReporters='json-summary' --forceExit"
+
+      # - uses: ziishaned/jest-reporter-action@v0.1.1
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     test-command: "npm jest --coverage"
