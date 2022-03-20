@@ -1,7 +1,7 @@
 name: Jest Coverage Comment
 
 on:
-  push:
+  # push:
   pull_request:
 
 jobs:
@@ -34,4 +34,4 @@ jobs:
           title: Jest Coverage Comment
           summary-title: Summary
           badge-title: Jest Coverage
-          hide-comment: true
+          hide-comment: false
