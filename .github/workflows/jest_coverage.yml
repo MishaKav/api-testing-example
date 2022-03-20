@@ -81,6 +81,5 @@ jobs:
       #     test_command: 'npm run test'
 
       - uses: IgnusG/jest-report-action@v2.3.3
-        if: always() # Or use "continue-on-error: true" in previous test step
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
