@@ -3,7 +3,7 @@ name: Jest Coverage Comment
 on:
   # push:
   pull_request:
- 
+
 jobs:
   jest-coverage-comment:
     name: Jest Coverage Comment
