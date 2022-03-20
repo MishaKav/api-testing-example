@@ -35,4 +35,4 @@ jobs:
           summary-title: Summary
           badge-title: Jest Coverage
           hide-comment: false
-          create-new-comment: true
+          create-new-comment: false
