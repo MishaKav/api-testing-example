@@ -36,3 +36,4 @@ jobs:
           badge-title: Jest Coverage
           hide-comment: false
           create-new-comment: false
+          hide-summary-report: true
