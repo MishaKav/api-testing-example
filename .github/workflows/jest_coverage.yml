@@ -74,8 +74,13 @@ jobs:
       #   with:
       #     test-command: 'npm test'
 
-      - name: Comment with Test Coverage
-        uses: dkershner6/jest-coverage-commenter-action@v1
+      # - name: Comment with Test Coverage
+      #   uses: dkershner6/jest-coverage-commenter-action@v1
+      #   with:
+      #     github_token: '${{ secrets.GITHUB_TOKEN }}'
+      #     test_command: 'npm run test'
+
+      - uses: IgnusG/jest-report-action@v2.3.3
+        if: always() # Or use "continue-on-error: true" in previous test step
         with:
-          github_token: '${{ secrets.GITHUB_TOKEN }}'
-          test_command: 'npm run test'
+          access-token: ${{ secrets.GITHUB_TOKEN }}
