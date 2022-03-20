@@ -31,4 +31,4 @@ jobs:
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@first-release
         with:
-          test_command: 'npm run test'
+          title: Jest Coverage Comment
