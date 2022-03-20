@@ -32,3 +32,5 @@ jobs:
         uses: MishaKav/jest-coverage-comment@first-release
         with:
           title: Jest Coverage Comment
+          summary-title: Summary
+          badge-title: Jest Coverage
