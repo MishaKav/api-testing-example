@@ -33,8 +33,8 @@ jobs:
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@junit-xml
         with:
-          # title: Jest Coverage Comment
-          # summary-title: Summary
+          title: Jest Coverage Comment
+          summary-title: Summary
           badge-title: Coverage
           hide-comment: false
           create-new-comment: false
