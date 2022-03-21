@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node .",
-    "test": "jest --coverage",
-    "coverage": "npm test",
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
     "lint": "npx eslint ."
   },
   "repository": {

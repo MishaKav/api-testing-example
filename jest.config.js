@@ -1,12 +1,13 @@
 module.exports = {
-  testPathIgnorePatterns: ['/node_modules/'],
+  // testPathIgnorePatterns: ['/node_modules/'],
+  // collectCoverageFrom: ['./src/*.{js,jsx}', './src/**/*.{js,jsx}'],
   coverageReporters: [
-    // 'clover',
-    // 'json',
+    //   'clover',
+    //   'json',
     'json-summary',
     'text',
     'text-summary',
-    // 'lcov',
+    //   'lcov',
   ],
   reporters: ['default', ['jest-junit', {outputDirectory: 'coverage'}]],
 };
