@@ -1,12 +1,12 @@
 module.exports = {
   testPathIgnorePatterns: ['/node_modules/'],
   coverageReporters: [
-    'clover',
-    'json',
+    // 'clover',
+    // 'json',
     'json-summary',
     'text',
     'text-summary',
-    'lcov',
+    // 'lcov',
   ],
-  reporters: ['default', 'jest-junit'],
+  reporters: ['default', ['jest-junit', {outputDirectory: 'coverage'}]],
 };
