@@ -1,10 +1,10 @@
 name: Jest Coverage Comment
 
 on:
-  # pull_request:
-  push:
-    branches:
-      - test-branch
+  pull_request:
+  # push:
+  #   branches:
+  #     - test-branch
 
 jobs:
   jest-coverage-comment:
