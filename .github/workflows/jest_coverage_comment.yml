@@ -39,4 +39,5 @@ jobs:
           hide-comment: false
           create-new-comment: false
           hide-summary: false
+          junitxml-title: Junit
           junitxml-path: ./coverage/junit.xml
