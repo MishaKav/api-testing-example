@@ -29,11 +29,12 @@ jobs:
         run: npm run coverage
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@first-release
+        uses: MishaKav/jest-coverage-comment@junit-xml
         with:
-          title: Jest Coverage Comment
-          summary-title: Summary
-          badge-title: Jest Coverage
+          # title: Jest Coverage Comment
+          # summary-title: Summary
+          badge-title: Coverage
           hide-comment: false
           create-new-comment: false
           hide-summary-report: false
+          junitxml-path: ./coverage/junit.xml
