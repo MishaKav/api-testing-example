@@ -1,0 +1,40 @@
+name: Jest Coverage Comment
+
+on:
+  # push:
+  pull_request:
+
+jobs:
+  jest-coverage-comment:
+    name: Jest Coverage Comment
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: NPM Cache
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm
+
+      - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run Tests
+        run: npm run coverage
+
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@junit-xml
+        with:
+          # title: Jest Coverage Comment
+          # summary-title: Summary
+          badge-title: Coverage
+          hide-comment: false
+          create-new-comment: false
+          hide-summary-report: false
+          junitxml-path: ./coverage/junit.xml
