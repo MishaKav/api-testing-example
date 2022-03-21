@@ -1,8 +1,10 @@
 name: Jest Coverage Comment
 
 on:
-  # push:
-  pull_request:
+  # pull_request:
+  push:
+    branches:
+      - test-branch
 
 jobs:
   jest-coverage-comment:
@@ -36,5 +38,5 @@ jobs:
           badge-title: Coverage
           hide-comment: false
           create-new-comment: false
-          hide-summary-report: false
+          hide-summary: false
           junitxml-path: ./coverage/junit.xml
