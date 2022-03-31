@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm run coverage | tee ./coverage/coverage.txt
+        run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@coverage--report
@@ -42,4 +42,4 @@ jobs:
           junitxml-title: Junit Title
           junitxml-path: ./coverage/junit.xml
           coverage-title: Coverage Title
-          coverage-path: ./coverage/coverage.txt
+          coverage-path: ./coverage.txt
