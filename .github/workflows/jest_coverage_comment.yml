@@ -28,16 +28,18 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm run coverage
+        run: npm run coverage | tee ./coverage/coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@junit-xml
+        uses: MishaKav/jest-coverage-comment@coverage--report
         with:
           title: Jest Coverage Comment
-          summary-title: Summary
+          summary-title: Summary Title
           badge-title: Coverage
           hide-comment: false
           create-new-comment: false
           hide-summary: false
-          junitxml-title: Junit
+          junitxml-title: Junit Title
           junitxml-path: ./coverage/junit.xml
+          coverage-title: Coverage Title
+          coverage-path: ./coverage/coverage.txt
