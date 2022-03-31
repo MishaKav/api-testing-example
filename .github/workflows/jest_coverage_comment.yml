@@ -39,7 +39,7 @@ jobs:
           hide-comment: false
           create-new-comment: false
           hide-summary: false
-          report-only-changed-files: false
+          report-only-changed-files: true
           junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
           coverage-title: My Coverage Title
