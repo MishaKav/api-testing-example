@@ -29,7 +29,7 @@ jobs:
         run: npm run coverage
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@junit-xml
+        uses: MishaKav/jest-coverage-comment@main
         with:
           # title: Jest Coverage Comment
           # summary-title: Summary
