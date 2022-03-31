@@ -31,7 +31,7 @@ jobs:
         run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@coverage--report
+        uses: MishaKav/jest-coverage-comment@report-only-changed-files
         with:
           title: My Jest Coverage Comment
           summary-title: My Summary Title
@@ -39,6 +39,7 @@ jobs:
           hide-comment: false
           create-new-comment: false
           hide-summary: false
+          report-only-changed-files: true
           junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
           coverage-title: My Coverage Title
