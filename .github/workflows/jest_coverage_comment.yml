@@ -30,7 +30,7 @@ jobs:
       - name: Run Tests
         run: npm run coverage | tee ./coverage.txt
 
-      - name: Jest Coverage Comment
+      - name: Jest Coverage Comment 
         uses: MishaKav/jest-coverage-comment@report-only-changed-files
         with:
           title: My Jest Coverage Comment
