@@ -2,9 +2,9 @@ name: Jest Coverage Comment
 
 on:
   pull_request:
-  # push:
-  #   branches:
-  #     - test-branch
+  push:
+    branches:
+      - test-branch
 
 jobs:
   jest-coverage-comment:
@@ -16,7 +16,7 @@ jobs:
 
       - name: NPM Cache
         id: npm-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -34,13 +34,13 @@ jobs:
         uses: MishaKav/jest-coverage-comment@main
         with:
           title: My Jest Coverage Comment
-          summary-title: My Summary Title
-          badge-title: Coverage
+          # summary-title: My Summary Title
+          # badge-title: Coverage
           hide-comment: false
           create-new-comment: false
           hide-summary: false
           report-only-changed-files: true
-          junitxml-title: My Junit Title
+          # junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
-          coverage-title: My Coverage Title
+          # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
