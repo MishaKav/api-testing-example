@@ -31,7 +31,7 @@ jobs:
         run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
+        uses: MishaKav/jest-coverage-comment@support-mono-repo
         with:
           title: My Jest Coverage Comment
           # summary-title: My Summary Title
@@ -44,3 +44,6 @@ jobs:
           junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
+          multiple-files: |
+            My-Title-1, ./data/coverage-summary_1.json
+            My-Title-2, ./data/coverage-summary_2.json
