@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - test-branch
+      - test-mono-repo
 
 jobs:
   jest-coverage-comment:
@@ -31,7 +31,7 @@ jobs:
         run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@support-mono-repo
+        uses: MishaKav/jest-coverage-comment@remove-links
         with:
           title: My Jest Coverage Comment
           # summary-title: My Summary Title
@@ -39,11 +39,12 @@ jobs:
           hide-comment: false
           create-new-comment: false
           hide-summary: false
-          report-only-changed-files: true
+          remove-links-to-files: true
+          report-only-changed-files: false
           # junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
-          multiple-files: |
-            My-Title-1, ./data/coverage-summary_1.json
-            My-Title-2, ./data/coverage-summary_2.json
+          # multiple-files: |
+          #   My-Title-1, ./data/coverage-summary_1.json
+          #   My-Title-2, ./data/coverage-summary_2.json
