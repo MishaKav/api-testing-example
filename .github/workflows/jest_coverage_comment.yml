@@ -33,14 +33,14 @@ jobs:
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@remove-links
         with:
-          title: My Jest Coverage Comment
+          # title: My Jest Coverage Comment
           # summary-title: My Summary Title
           # badge-title: Coverage
           hide-comment: false
           create-new-comment: false
           hide-summary: false
-          remove-links-to-files: true
-          remove-links-to-lines: true
+          remove-links-to-files: false
+          remove-links-to-lines: false
           report-only-changed-files: false
           # junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
