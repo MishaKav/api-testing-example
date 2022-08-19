@@ -40,6 +40,7 @@ jobs:
           create-new-comment: false
           hide-summary: false
           remove-links-to-files: true
+          remove-links-to-lines: true
           report-only-changed-files: false
           # junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
