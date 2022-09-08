@@ -1,11 +1,13 @@
 const axios = require('axios');
+const axiosRetry = require('axios-retry');
 const config = require('./utils/config');
-const { parseUrl } = require('./utils/utils');
 
 const Service = {
   posts: async () => {
     try {
-      const response = await axios.get(config.POSTS_URL);
+      const instance = axios.create({ url: config.POSTS_URL });
+      axiosRetry(instance, { retries: 3 });
+      const response = await instance.get(config.POSTS_URL);
       return response.data;
     } catch (error) {
       throw error;
