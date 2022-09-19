@@ -19,6 +19,12 @@ jobs:
         with:
           pytest-coverage-path: ./data/pytest-coverage_1.txt
 
+      - name: Print output
+        run: |
+          echo "${{ steps.coverageComment.outputs.coverageHtml }}"
+          echo "__________________________________________________"
+          echo "${{ steps.coverageComment.outputs.summaryReport }}"
+
       - name: Update Readme with Coverage Html
         if: ${{ github.ref == 'refs/heads/test-update-readme' }}
         run: |
