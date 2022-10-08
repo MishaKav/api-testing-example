@@ -11,7 +11,7 @@ jobs:
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
       - name: Create the Badge
-        uses: sMishaKav/dynamic-badges-action@add-update-if-changed
+        uses: MishaKav/dynamic-badges-action@add-update-if-changed
         with:
           auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
           gistID: 5e90d640f8c212ab7bbac38f72323f80
