@@ -16,5 +16,6 @@ jobs:
           auth: ${{ secrets.PYTEST_COVERAGE_COMMENT }}
           gistID: 5e90d640f8c212ab7bbac38f72323f80
           filename: gistfile.txt
+          updateIfChanged: true
           label: Hello
-          message: World
+          message: World2
