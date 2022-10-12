@@ -2,7 +2,7 @@ name: Update Coverage on Readme
 on:
   push:
     branches:
-      - test-update-readme
+      - test-pytest-node16
 jobs:
   update-coverage-on-readme:
     runs-on: ubuntu-latest
