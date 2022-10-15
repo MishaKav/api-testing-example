@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - test-branch
+      - test-multiple-junit-files
 
 jobs:
   jest-coverage-comment:
@@ -14,24 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: NPM Cache
-        id: npm-cache
-        uses: actions/cache@v3
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm
+      # - name: NPM Cache
+      #   id: npm-cache
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: '**/node_modules'
+      #     key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-npm
 
-      - name: Install Dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
+      # - name: Install Dependencies
+      #   if: steps.npm-cache.outputs.cache-hit != 'true'
+      #   run: npm ci
 
-      - name: Run Tests
-        run: npm run coverage | tee ./coverage.txt
+      # - name: Run Tests
+      #   run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
+        uses: MishaKav/jest-coverage-comment@support-multiple-junitxml-files
         with:
           title: My Jest Coverage Comment
           # summary-title: My Summary Title
@@ -39,8 +39,11 @@ jobs:
           hide-comment: false
           create-new-comment: false
           hide-summary: false
-          report-only-changed-files: true
-          # junitxml-title: My Junit Title
+          report-only-changed-files: false
+          junitxml-title: My Junit Title
           junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
+          multiple-junitxml-files: |
+            My-Title-1, ./coverage/junit.xml
+            My-Title-2, ./coverage/junit.xml
