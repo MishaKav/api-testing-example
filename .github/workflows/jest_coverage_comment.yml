@@ -33,13 +33,13 @@ jobs:
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@support-multiple-junitxml-files
         with:
-          title: My Jest Coverage Comment
+          # title: My Jest Coverage Comment
           # summary-title: My Summary Title
           # badge-title: Coverage
-          hide-comment: false
-          create-new-comment: false
-          hide-summary: false
-          report-only-changed-files: false
+          # hide-comment: false
+          # create-new-comment: false
+          # hide-summary: false
+          # report-only-changed-files: false
           # junitxml-title: My Junit Title
           # junitxml-path: ./data/junit.xml
           # coverage-title: My Coverage Title
