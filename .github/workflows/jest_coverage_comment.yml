@@ -41,9 +41,9 @@ jobs:
           hide-summary: false
           report-only-changed-files: false
           junitxml-title: My Junit Title
-          junitxml-path: ./coverage/junit.xml
+          junitxml-path: ./data/junit.xml
           # coverage-title: My Coverage Title
-          coverage-path: ./coverage.txt
+          # coverage-path: ./coverage.txt
           multiple-junitxml-files: |
-            My-Title-1, ./coverage/junit.xml
-            My-Title-2, ./coverage/junit.xml
+            My-Title-1, ./data/junit.xml
+            My-Title-2, ./data/junit.xml
