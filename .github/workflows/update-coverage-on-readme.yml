@@ -20,7 +20,7 @@ jobs:
 
       - name: Pytest coverage comment | Python ${{ matrix.python-version }}
         id: coverageComment
-        uses: MishaKav/pytest-coverage-comment@main
+        uses: MishaKav/pytest-coverage-comment@support-matrix-with-individual-comments
         with:
           hide-comment: false
           pytest-coverage-path: ./data/pytest-coverage_1.txt
