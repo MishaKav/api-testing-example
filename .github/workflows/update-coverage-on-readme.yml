@@ -24,5 +24,5 @@ jobs:
         with:
           hide-comment: false
           pytest-coverage-path: ./data/pytest-coverage_1.txt
-          junitxml-path: ./data/pytest_1.xml
+          # junitxml-path: ./data/pytest_1.xml
           unique-id-for-comment: ${{ matrix.python-version }}
