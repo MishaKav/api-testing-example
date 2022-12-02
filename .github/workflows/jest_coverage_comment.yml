@@ -49,7 +49,7 @@ jobs:
           hide-summary: false
           # report-only-changed-files: true
           # junitxml-title: My Junit Title
-          junitxml-path: ./coverage/junit.xml
+          # junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
           unique-id-for-comment: ${{ matrix.node-version }}
