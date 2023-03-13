@@ -32,7 +32,7 @@ jobs:
         run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
+        uses: MishaKav/jest-coverage-comment@missing-summary-error-in-annotations
         with:
           title: My Jest Coverage Comment
           coverage-summary-path: ./non-exist.json
