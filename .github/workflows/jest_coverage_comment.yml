@@ -35,7 +35,6 @@ jobs:
         uses: MishaKav/jest-coverage-comment@missing-summary-error-in-annotations
         with:
           title: My Jest Coverage Comment
-          coverage-summary-path: ./non-exist.json
           multiple-files: |
             ui, ./coverage/coverage-summary.json
             backend, ./coverage/coverage-summary.json
