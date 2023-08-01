@@ -31,8 +31,12 @@ jobs:
       # - name: Run Tests
       #   run: npm run coverage | tee ./coverage.txt
 
+      - name: CLI
+        run: |
+          VAR=$(cat ./data/dynamic-multiple-files.txt)
+          echo "VERSION=$VAR" >> $GITHUB_ENV
+
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          multiple-files: |
-            echo $(cat ./data/dynamic-multiple-files.txt)
+          multiple-files: ${{ env.VERSION }}
