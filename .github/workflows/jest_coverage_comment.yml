@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
     branches:
-      - test-branch
+      - test-dynamic-multiple-files
 
 jobs:
   jest-coverage-comment:
