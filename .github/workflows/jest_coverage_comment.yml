@@ -45,11 +45,11 @@ jobs:
 
       - name: Read VERSION file
         run: |
-          echo 'CONTENT_ENV<<EOF' >> $GITHUB_ENV
+          echo 'PYLINTING_RESULTS<<EOF' >> $GITHUB_ENV
           cat data/dynamic-multiple-files.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          multiple-files: $CONTENT_ENV
+          multiple-files: ${{ env.PYLINTING_RESULTS }}
