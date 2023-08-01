@@ -31,13 +31,23 @@ jobs:
       # - name: Run Tests
       #   run: npm run coverage | tee ./coverage.txt
 
-      - name: Read dynamic-multiple-files.txt
-        id: multiple
-        uses: jaywcjlove/github-action-read-file@main
-        with:
-          path: data/dynamic-multiple-files.txt
+      # WORK
+      # - name: Read dynamic-multiple-files.txt
+      #   id: multiple
+      #   uses: jaywcjlove/github-action-read-file@main
+      #   with:
+      #     path: data/dynamic-multiple-files.txt
+
+      # - name: Jest Coverage Comment
+      #   uses: MishaKav/jest-coverage-comment@main
+      #   with:
+      #     multiple-files: ${{ steps.multiple.outputs.content }}
+
+      - name: Read VERSION file
+        id: getversion
+        run: echo "version=$(cat data/dynamic-multiple-files.txt)" >> $GITHUB_OUTPUT
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          multiple-files: ${{ steps.multiple.outputs.content }}
+          multiple-files: ${{ steps.getversion.outputs.version }}
