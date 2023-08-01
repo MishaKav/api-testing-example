@@ -35,7 +35,7 @@ jobs:
         id: multiple
         uses: jaywcjlove/github-action-read-file@main
         with:
-          path: ./data/dynamic-multiple-files.txt
+          path: data/dynamic-multiple-files.txt
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
