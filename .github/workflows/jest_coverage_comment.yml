@@ -32,24 +32,13 @@ jobs:
       #   run: npm run coverage | tee ./coverage.txt
 
       # WORK
-      # - name: Read dynamic-multiple-files.txt
-      #   id: multiple
-      #   uses: jaywcjlove/github-action-read-file@main
-      #   with:
-      #     path: data/dynamic-multiple-files.txt
-
-      # - name: Jest Coverage Comment
-      #   uses: MishaKav/jest-coverage-comment@main
-      #   with:
-      #     multiple-files: ${{ steps.multiple.outputs.content }}
-
-      - name: Read VERSION file
-        run: |
-          echo 'PYLINTING_RESULTS<<EOF' >> $GITHUB_ENV
-          cat data/dynamic-multiple-files.txt >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+      - name: Read dynamic-multiple-files.txt
+        id: multiplefiles
+        uses: jaywcjlove/github-action-read-file@main
+        with:
+          path: data/dynamic-multiple-files.txt
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          multiple-files: ${{ env.PYLINTING_RESULTS }}
+          multiple-files: ${{ steps.multiplefiles.outputs.content }}
