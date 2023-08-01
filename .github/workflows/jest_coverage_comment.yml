@@ -35,5 +35,4 @@ jobs:
         uses: MishaKav/jest-coverage-comment@main
         with:
           multiple-files: |
-            My-Title-1, ./data/coverage-summary.json
-            My-Title-2, ./data/coverage-summary_2.json
+            cat ./data/dynamic-multiple-files.txt
