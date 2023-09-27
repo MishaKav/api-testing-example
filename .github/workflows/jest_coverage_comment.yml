@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # - name: NPM Cache
       #   id: npm-cache
@@ -32,13 +32,15 @@ jobs:
       #   run: npm run coverage | tee ./coverage.txt
 
       # WORK
-      - name: Read dynamic-multiple-files.txt
-        id: multiplefiles
-        uses: jaywcjlove/github-action-read-file@main
-        with:
-          path: data/dynamic-multiple-files.txt
+      # - name: Read dynamic-multiple-files.txt
+      #   id: multiplefiles
+      #   uses: jaywcjlove/github-action-read-file@main
+      #   with:
+      #     path: data/dynamic-multiple-files.txt
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
-          multiple-files: ${{ steps.multiplefiles.outputs.content }}
+          multiple-files: |
+            My-Title-1, ./data/coverage-summary.json
+            My-Title-2, ./data/coverage-summary_2.json
