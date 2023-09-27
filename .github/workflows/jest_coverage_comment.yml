@@ -38,10 +38,5 @@ jobs:
       #   with:
       #     path: data/dynamic-multiple-files.txt
 
-      - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
-        with:
-          multiple-files: |
-               ReportA, ${{ github.workspace }}/data/coverage-summary.json
-               ReportB, ${{ github.workspace }}/data/coverage-summary_2.json
-          report-only-changed-files: true
+      - name: check if file exists
+        run: cat ${{ github.workspace }}/data/coverage-summary_2.json
