@@ -44,3 +44,4 @@ jobs:
           multiple-files: |
                ReportA, ${{ github.workspace }}/data/coverage-summary.json
                ReportB, ${{ github.workspace }}/data/coverage-summary_2.json
+          report-only-changed-files: true
