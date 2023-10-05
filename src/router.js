@@ -6,4 +6,4 @@ const Controller = require('./controller');
 router.get('/posts', Controller.getPosts);
 router.get('/users', Controller.getUsers);
 
-module.exports = router;
+module.exports = router; 
