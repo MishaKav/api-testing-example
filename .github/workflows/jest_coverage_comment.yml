@@ -46,4 +46,4 @@ jobs:
           # junitxml-title: My Junit Title
           # junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
-          coverage-path: ./coverage.txt
+          # coverage-path: ./coverage.txt
