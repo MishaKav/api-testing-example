@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
     branches:
-      - test-branch
+      - test-issue-18-on-jest
 
 jobs:
   jest-coverage-comment:
@@ -32,16 +32,18 @@ jobs:
         run: npm run coverage | tee ./coverage.txt
 
       - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@should-not-fail-when-runs-on-unsupported-events
+        uses: MishaKav/jest-coverage-comment@main
         with:
-          title: My Jest Coverage Comment
-          # summary-title: My Summary Title
-          # badge-title: Coverage
           hide-comment: false
           create-new-comment: false
           hide-summary: false
           report-only-changed-files: true
+          # title: My Jest Coverage Comment
+          # summary-title: My Summary Title
+          # badge-title: Coverage
+          # hide-comment: false
+          # hide-summary: false
           # junitxml-title: My Junit Title
-          junitxml-path: ./coverage/junit.xml
+          # junitxml-path: ./coverage/junit.xml
           # coverage-title: My Coverage Title
           coverage-path: ./coverage.txt
