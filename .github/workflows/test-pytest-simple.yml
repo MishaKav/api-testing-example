@@ -2,11 +2,6 @@ name: Test Pytest Simple
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch from pytest-coverage-comment'
-        required: true
-        default: 'main'
 
 permissions:
   contents: write
@@ -15,19 +10,15 @@ permissions:
 
 jobs:
   test-simple:
-    name: Simple Test
+    name: Simple Test (v1)
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v5
 
-      - name: Show branch
-        run: |
-          echo "Testing branch: ${{ inputs.branch }}"
-
       - name: Run action
         id: coverage
-        uses: MishaKav/pytest-coverage-comment@main
+        uses: MishaKav/pytest-coverage-comment@v1
         with:
           pytest-xml-coverage-path: ./data/coverage_1.xml
           junitxml-path: ./data/pytest_1.xml
