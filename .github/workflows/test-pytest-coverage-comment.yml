@@ -25,6 +25,8 @@ jobs:
 
       - name: Check if PR number provided and exists
         id: check-pr
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ -n "${{ inputs.issue-number }}" ]; then
             echo "Checking if PR #${{ inputs.issue-number }} exists..."
@@ -43,6 +45,8 @@ jobs:
       - name: Create test PR if needed
         if: steps.check-pr.outputs.exists == 'false'
         id: create-pr
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           BRANCH_NAME="test-coverage-$(date +%s)"
           echo "Creating test branch: $BRANCH_NAME"
