@@ -7,7 +7,6 @@ on:
         description: 'Branch from pytest-coverage-comment'
         required: true
         default: 'main'
-  pull_request:
 
 permissions:
   contents: write
@@ -25,11 +24,11 @@ jobs:
 
       - name: Show branch
         run: |
-          echo "Testing branch: ${{ inputs.branch || 'main' }}"
+          echo "Testing branch: ${{ inputs.branch }}"
 
       - name: Run action
         id: coverage
-        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch || 'main' }}
+        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch }}
         with:
           pytest-xml-coverage-path: ./data/coverage_1.xml
           junitxml-path: ./data/pytest_1.xml

@@ -8,7 +8,6 @@ on:
         required: true
         default: 'main'
         type: string
-  pull_request:
 
 permissions:
   contents: write
@@ -162,12 +161,12 @@ jobs:
       - name: Display test configuration
         run: |
           echo "Testing: ${{ matrix.test-name }}"
-          echo "Branch: ${{ inputs.branch || 'main' }}"
+          echo "Branch: ${{ inputs.branch }}"
           echo "Coverage type: ${{ matrix.coverage-type }}"
 
       - name: Run pytest-coverage-comment
         id: coverageComment
-        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch || 'main' }}
+        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch }}
         with:
           pytest-xml-coverage-path: ${{ matrix.pytest-xml-coverage-path }}
           pytest-coverage-path: ${{ matrix.pytest-coverage-path }}
