@@ -68,12 +68,29 @@ jobs:
           echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
           echo "✅ Created PR #$PR_NUMBER"
 
+          # Add to job summary
+          echo "## 🎯 Test PR Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**PR #$PR_NUMBER:** $PR_URL" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All test jobs will post coverage comments to this PR." >> $GITHUB_STEP_SUMMARY
+
       - name: Set final PR number
         id: set-pr
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ steps.check-pr.outputs.exists }}" == "true" ]; then
             echo "pr-number=${{ inputs.issue-number }}" >> $GITHUB_OUTPUT
             echo "Using provided PR #${{ inputs.issue-number }}"
+
+            # Add to summary for existing PR
+            PR_URL="https://github.com/${{ github.repository }}/pull/${{ inputs.issue-number }}"
+            echo "## 🎯 Using Existing Test PR" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**PR #${{ inputs.issue-number }}:** $PR_URL" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "All test jobs will post coverage comments to this PR." >> $GITHUB_STEP_SUMMARY
           else
             echo "pr-number=${{ steps.create-pr.outputs.pr-number }}" >> $GITHUB_OUTPUT
             echo "Using auto-created PR #${{ steps.create-pr.outputs.pr-number }}"
