@@ -115,11 +115,10 @@ jobs:
             junitxml-path: './data/pytest_1.xml'
 
           # Feature tests
-          - test-name: 'Badge Options'
+          - test-name: 'Text Instead Badge'
             pytest-xml-coverage-path: './data/coverage_1.xml'
             pytest-coverage-path: ''
             junitxml-path: './data/pytest_1.xml'
-            hide-badge: 'true'
             text-instead-badge: 'true'
 
           - test-name: 'Hide Report'
