@@ -162,12 +162,12 @@ jobs:
       - name: Display test configuration
         run: |
           echo "Testing: ${{ matrix.test-name }}"
-          echo "Branch: ${{ github.event.inputs.branch || 'main' }}"
+          echo "Branch: ${{ inputs.branch || 'main' }}"
           echo "Coverage type: ${{ matrix.coverage-type }}"
 
       - name: Run pytest-coverage-comment
         id: coverageComment
-        uses: MishaKav/pytest-coverage-comment@${{ github.event.inputs.branch || 'main' }}
+        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch || 'main' }}
         with:
           pytest-xml-coverage-path: ${{ matrix.pytest-xml-coverage-path }}
           pytest-coverage-path: ${{ matrix.pytest-coverage-path }}

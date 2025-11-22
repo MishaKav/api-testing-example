@@ -25,11 +25,11 @@ jobs:
 
       - name: Show branch
         run: |
-          echo "Testing branch: ${{ github.event.inputs.branch || 'main' }}"
+          echo "Testing branch: ${{ inputs.branch || 'main' }}"
 
       - name: Run action
         id: coverage
-        uses: MishaKav/pytest-coverage-comment@${{ github.event.inputs.branch || 'main' }}
+        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch || 'main' }}
         with:
           pytest-xml-coverage-path: ./data/coverage_1.xml
           junitxml-path: ./data/pytest_1.xml
