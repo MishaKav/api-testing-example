@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       issue-number:
-        description: 'PR number to comment on (use PR #13 for testing)'
+        description: 'PR number to comment on (leave empty to auto-create)'
         required: false
-        default: '13'
+        default: ''
 
 permissions:
   contents: write
@@ -14,8 +14,70 @@ permissions:
   pull-requests: write
 
 jobs:
+  setup:
+    name: Setup PR for Testing
+    runs-on: ubuntu-latest
+    outputs:
+      pr-number: ${{ steps.set-pr.outputs.pr-number }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check if PR number provided and exists
+        id: check-pr
+        run: |
+          if [ -n "${{ inputs.issue-number }}" ]; then
+            echo "Checking if PR #${{ inputs.issue-number }} exists..."
+            if gh pr view ${{ inputs.issue-number }} > /dev/null 2>&1; then
+              echo "exists=true" >> $GITHUB_OUTPUT
+              echo "✅ PR #${{ inputs.issue-number }} exists"
+            else
+              echo "exists=false" >> $GITHUB_OUTPUT
+              echo "❌ PR #${{ inputs.issue-number }} not found"
+            fi
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "No PR number provided"
+          fi
+
+      - name: Create test PR if needed
+        if: steps.check-pr.outputs.exists == 'false'
+        id: create-pr
+        run: |
+          BRANCH_NAME="test-coverage-$(date +%s)"
+          echo "Creating test branch: $BRANCH_NAME"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b $BRANCH_NAME
+
+          echo "# Test PR for Coverage Workflow" > test-workflow-pr.md
+          echo "Auto-created by workflow run at $(date)" >> test-workflow-pr.md
+
+          git add test-workflow-pr.md
+          git commit -m "Test PR for coverage workflow"
+          git push -u origin $BRANCH_NAME
+
+          PR_URL=$(gh pr create --title "Test PR for Coverage Workflow" --body "Auto-created for testing pytest-coverage-comment action. This PR can be closed after testing." --base main --head $BRANCH_NAME)
+          PR_NUMBER=$(echo $PR_URL | grep -oP '(?<=pull/)\d+')
+
+          echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "✅ Created PR #$PR_NUMBER"
+
+      - name: Set final PR number
+        id: set-pr
+        run: |
+          if [ "${{ steps.check-pr.outputs.exists }}" == "true" ]; then
+            echo "pr-number=${{ inputs.issue-number }}" >> $GITHUB_OUTPUT
+            echo "Using provided PR #${{ inputs.issue-number }}"
+          else
+            echo "pr-number=${{ steps.create-pr.outputs.pr-number }}" >> $GITHUB_OUTPUT
+            echo "Using auto-created PR #${{ steps.create-pr.outputs.pr-number }}"
+          fi
+
   test-pytest-coverage-comment:
-    name: Test ${{ matrix.test-name }}
+    name: ${{ matrix.test-name }}
+    needs: setup
     runs-on: ubuntu-latest
 
     strategy:
@@ -84,13 +146,12 @@ jobs:
             remove-links-to-lines: 'true'
 
     steps:
-      - name: Checkout api-testing-example repo
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
       - name: Display test configuration
         run: |
           echo "Testing: ${{ matrix.test-name }}"
-          echo "PR Number: ${{ inputs.issue-number }}"
+          echo "PR Number: ${{ needs.setup.outputs.pr-number }}"
 
       - name: Run pytest-coverage-comment
         id: coverageComment
@@ -99,7 +160,7 @@ jobs:
           pytest-xml-coverage-path: ${{ matrix.pytest-xml-coverage-path }}
           pytest-coverage-path: ${{ matrix.pytest-coverage-path }}
           junitxml-path: ${{ matrix.junitxml-path }}
-          issue-number: ${{ inputs.issue-number }}
+          issue-number: ${{ needs.setup.outputs.pr-number }}
           hide-badge: ${{ matrix.hide-badge || 'false' }}
           hide-report: ${{ matrix.hide-report || 'false' }}
           hide-comment: ${{ matrix.hide-comment || 'false' }}
