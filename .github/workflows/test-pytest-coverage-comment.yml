@@ -1,0 +1,209 @@
+name: Test Pytest Coverage Comment
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name from pytest-coverage-comment repo'
+        required: true
+        default: 'main'
+        type: string
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
+jobs:
+  test-pytest-coverage-comment:
+    name: Test ${{ matrix.test-name }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Test different coverage file types with varying coverage percentages
+          - test-name: 'XML Coverage (30%)'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_1.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_1.xml'
+
+          - test-name: 'XML Coverage High (89%)'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_2.xml'
+
+          - test-name: 'TXT Coverage (Small)'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_4.txt'
+            junitxml-path: './data/pytest_1.xml'
+
+          - test-name: 'TXT Coverage (Large 83K)'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_8.txt'
+            junitxml-path: './data/pytest_2.xml'
+
+          - test-name: 'TXT 100% Coverage'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_12.txt'
+            junitxml-path: './data/pytest_1.xml'
+
+          - test-name: 'Both Coverage Files'
+            coverage-type: 'both'
+            pytest-xml-coverage-path: './data/coverage_1.xml'
+            pytest-coverage-path: './data/pytest-coverage_1.txt'
+            junitxml-path: './data/pytest_1.xml'
+
+          - test-name: 'Large Test Suite (493K)'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_3.xml'
+
+          # Test badge and report options
+          - test-name: 'Hide Badge'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_2.xml'
+            hide-badge: 'true'
+
+          - test-name: 'Hide Report'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_2.txt'
+            junitxml-path: './data/pytest_1.xml'
+            hide-report: 'true'
+
+          - test-name: 'Text Instead Badge'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_1.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_1.xml'
+            text-instead-badge: 'true'
+
+          # Test XML-specific options with 100% coverage file
+          - test-name: 'XML Skip Covered Files'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_12.txt'
+            junitxml-path: './data/pytest_1.xml'
+            xml-skip-covered: 'true'
+
+          # Test link options with large file
+          - test-name: 'Remove Link from Badge'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_8.txt'
+            junitxml-path: './data/pytest_2.xml'
+            remove-link-from-badge: 'true'
+
+          - test-name: 'Remove Links to Files'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_1.xml'
+            remove-links-to-files: 'true'
+
+          - test-name: 'Remove Links to Lines'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_1.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_2.xml'
+            remove-links-to-lines: 'true'
+
+          # Test comment behavior options
+          - test-name: 'Create New Comment'
+            coverage-type: 'both'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: './data/pytest-coverage_2.txt'
+            junitxml-path: './data/pytest_2.xml'
+            create-new-comment: 'true'
+
+          - test-name: 'Hide Comment (Outputs Only)'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_4.txt'
+            junitxml-path: './data/pytest_1.xml'
+            hide-comment: 'true'
+
+          # Test custom titles with large test suite
+          - test-name: 'Custom Titles'
+            coverage-type: 'xml'
+            pytest-xml-coverage-path: './data/coverage_2.xml'
+            pytest-coverage-path: ''
+            junitxml-path: './data/pytest_3.xml'
+            title: 'My Custom Coverage Report'
+            badge-title: 'Test Coverage'
+            junitxml-title: 'Test Results'
+
+          # Test combined options with 100% coverage
+          - test-name: 'All Visual Options (100%)'
+            coverage-type: 'txt'
+            pytest-xml-coverage-path: ''
+            pytest-coverage-path: './data/pytest-coverage_12.txt'
+            junitxml-path: './data/pytest_1.xml'
+            text-instead-badge: 'true'
+            remove-links-to-files: 'true'
+            remove-links-to-lines: 'true'
+            xml-skip-covered: 'true'
+
+    steps:
+      - name: Checkout api-testing-example repo
+        uses: actions/checkout@v5
+
+      - name: Display test configuration
+        run: |
+          echo "Testing: ${{ matrix.test-name }}"
+          echo "Branch: ${{ inputs.branch || 'main' }}"
+          echo "Coverage type: ${{ matrix.coverage-type }}"
+
+      - name: Run pytest-coverage-comment
+        id: coverageComment
+        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch || 'main' }}
+        with:
+          pytest-xml-coverage-path: ${{ matrix.pytest-xml-coverage-path }}
+          pytest-coverage-path: ${{ matrix.pytest-coverage-path }}
+          junitxml-path: ${{ matrix.junitxml-path }}
+          hide-badge: ${{ matrix.hide-badge || 'false' }}
+          hide-report: ${{ matrix.hide-report || 'false' }}
+          hide-comment: ${{ matrix.hide-comment || 'false' }}
+          xml-skip-covered: ${{ matrix.xml-skip-covered || 'false' }}
+          create-new-comment: ${{ matrix.create-new-comment || 'false' }}
+          remove-link-from-badge: ${{ matrix.remove-link-from-badge || 'false' }}
+          remove-links-to-files: ${{ matrix.remove-links-to-files || 'false' }}
+          remove-links-to-lines: ${{ matrix.remove-links-to-lines || 'false' }}
+          text-instead-badge: ${{ matrix.text-instead-badge || 'false' }}
+          title: ${{ matrix.title || 'Coverage Report' }}
+          badge-title: ${{ matrix.badge-title || 'Coverage' }}
+          junitxml-title: ${{ matrix.junitxml-title || '' }}
+          unique-id-for-comment: ${{ matrix.test-name }}
+
+      - name: Check outputs
+        run: |
+          echo "=== ${{ matrix.test-name }} Results ==="
+          echo "Coverage Percentage: ${{ steps.coverageComment.outputs.coverage }}"
+          echo "Coverage Color: ${{ steps.coverageComment.outputs.color }}"
+          echo "Coverage Warnings: ${{ steps.coverageComment.outputs.warnings }}"
+          echo ""
+          echo "Test Statistics:"
+          echo "  Tests: ${{ steps.coverageComment.outputs.tests }}"
+          echo "  Errors: ${{ steps.coverageComment.outputs.errors }}"
+          echo "  Failures: ${{ steps.coverageComment.outputs.failures }}"
+          echo "  Skipped: ${{ steps.coverageComment.outputs.skipped }}"
+          echo "  Time: ${{ steps.coverageComment.outputs.time }}"
+          echo ""
+          echo "Coverage HTML (first 20 lines):"
+          echo "${{ steps.coverageComment.outputs.coverageHtml }}" | head -n 20
+          echo ""
+          echo "✅ Test completed successfully!"
