@@ -1,0 +1,41 @@
+name: Test Pytest Simple
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch from pytest-coverage-comment'
+        required: true
+        default: 'main'
+  pull_request:
+
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
+jobs:
+  test-simple:
+    name: Simple Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Show branch
+        run: |
+          echo "Testing branch: ${{ github.event.inputs.branch || 'main' }}"
+
+      - name: Run action
+        id: coverage
+        uses: MishaKav/pytest-coverage-comment@${{ github.event.inputs.branch || 'main' }}
+        with:
+          pytest-xml-coverage-path: ./data/coverage_1.xml
+          junitxml-path: ./data/pytest_1.xml
+          hide-comment: true
+
+      - name: Show output
+        run: |
+          echo "Coverage: ${{ steps.coverage.outputs.coverage }}"
+          echo "Color: ${{ steps.coverage.outputs.color }}"
