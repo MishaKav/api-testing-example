@@ -9,9 +9,6 @@ on:
         default: 'main'
         type: string
   pull_request:
-  push:
-    branches:
-      - main
 
 permissions:
   contents: write
