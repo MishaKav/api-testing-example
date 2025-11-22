@@ -19,8 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
       - name: Show branch
         run: |
@@ -28,7 +27,7 @@ jobs:
 
       - name: Run action
         id: coverage
-        uses: MishaKav/pytest-coverage-comment@${{ inputs.branch }}
+        uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-xml-coverage-path: ./data/coverage_1.xml
           junitxml-path: ./data/pytest_1.xml
